@@ -1,0 +1,70 @@
+<section class="p-2 sm:p-6 lg:p-12 mt-6 md:mt-0">
+
+    <h1 class="text-3xl uppercase font-semibold">
+        Explore Workouts
+    </h1>
+
+    <!-- Searchbar and category dropdown -->
+
+    <form [formGroup]="filterForm" class="mt-6 flex items-center gap-3">
+        <input formControlName="name" type="text" placeholder="Search by name"
+            class="py-2 px-4 focus:outline-none border border-black" />
+        <select class="p-2" formControlName="type">
+            <option value="All">All</option>
+            <option value="Gym">Gym</option>
+            <option value="Cycling">Cycling</option>
+            <option value="Swimming">Swimming</option>
+            <option value="Running">Running</option>
+            <option value="Meditation">Meditation</option>
+            <option value="Yoga">Yoga</option>
+        </select>
+    </form>
+
+    @if(filteredUserData().length === 0) {
+    <p class="mt-6 text-xl text-center">No workouts found</p>
+    } @else {
+    <p class="mt-6 text-xl text-center">Workouts found: {{ filteredUserData().length||0 }}</p>
+
+    <table class="mt-6 w-full bg-slate-200 border border-black">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Workouts</th>
+                <th>Number of Workouts</th>
+                <th>Total Workout Minutes</th>
+            </tr>
+        </thead>
+
+        @for (user of paginatedData; track $index) {
+        <!-- list the workouts -->
+        <tr class="border border-gray-800 p-3">
+            <a routerLink="/{{user.name}}" class="p-3 text-center flex items-center justify-center underline">{{
+                user.name }}</a>
+            <td class="p-3 text-center">{{ getWorkoutTypes(user.workouts) }}</td>
+            <td class="p-3 text-center">{{ user.workouts.length }}</td>
+            <td class="p-3 text-center">{{ getTotalMinutes(user.workouts) }}</td>
+        </tr>
+        }
+    </table>
+    }
+
+    <!-- pagination -->
+
+    <div class="mt-6 flex items-center justify-center gap-3">
+        <button class="p-2 border border-black hover:bg-black transition-all hover:text-white" (click)="prevPage()"
+            [disabled]="currentPage === 1">Previous</button>
+        <button class="p-2 border border-black hover:bg-black transition-all hover:text-white" (click)="nextPage()"
+            [disabled]="currentPage === totalPages">Next</button>
+
+            <p>Results per page: </p>
+        <select name="noOfPages" id="noOfPages" (change)="changeItemsPerPage($event)">
+            <!-- <option value="2">2</option> -->
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+    </div>
+
+</section>

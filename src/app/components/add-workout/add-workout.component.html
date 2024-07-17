@@ -1,0 +1,31 @@
+<section class="p-2 sm:p-6 lg:p-12 grid grid-cols-1 lg:grid-cols-2 mt-6 md:mt-0">
+
+    <div>
+        <h1 class="text-3xl uppercase font-semibold">
+            Add Workout here
+        </h1>
+        
+        <form [formGroup]="workoutForm" (submit)="onSubmit()" class="mt-6 flex flex-col items-start gap-3 text-lg">
+            <input formControlName="name" type="text" placeholder="Username" class="px-4 py-3 focus:outline-none border-2 border-black rounded" />
+            <input formControlName="duration" type="number" placeholder="Duration" class="px-4 py-3 focus:outline-none border-2 border-black rounded" />
+            <select class="p-2" formControlName="type">
+                <option value="Gym">Gym</option>
+                <option value="Cycling">Cycling</option>
+                <option value="Swimming">Swimming</option>
+                <option value="Running">Running</option>
+                <option value="Meditation">Meditation</option>
+                <option value="Yoga">Yoga</option>
+            </select>
+            
+            <button type="submit" class="flex items-center gap-1 bg-cyan-950 text-white p-2 rounded">
+                <i class="pi pi-check-circle" style="font-size: 1rem;"></i>
+                <span>
+                    Submit
+                </span>
+            </button>
+            
+        </form>
+    </div>
+
+
+</section>
